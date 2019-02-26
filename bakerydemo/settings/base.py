@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'wagtailfontawesome',
+    'headlesspreview',
+    'corsheaders',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -70,6 +72,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -107,8 +110,8 @@ WSGI_APPLICATION = 'bakerydemo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'bakerydemodb')
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bakerydemo'
     }
 }
 
@@ -177,3 +180,8 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Wagtail settings
 WAGTAIL_SITE_NAME = "bakerydemo"
+
+HEADLESS_PREVIEW_CLIENT_URL = 'http://localhost:8020/'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_URLS_REGEX = r'^/api/v2/'

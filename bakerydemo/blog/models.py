@@ -9,6 +9,7 @@ from modelcluster.fields import ParentalKey
 
 from taggit.models import Tag, TaggedItemBase
 
+from wagtail.api import APIField
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.core.fields import StreamField
@@ -18,6 +19,8 @@ from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from bakerydemo.base.blocks import BaseStreamBlock
+
+from headlesspreview.models import HeadlessPreviewMixin
 
 
 class BlogPeopleRelationship(Orderable, models.Model):
@@ -48,7 +51,7 @@ class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('BlogPage', related_name='tagged_items', on_delete=models.CASCADE)
 
 
-class BlogPage(Page):
+class BlogPage(HeadlessPreviewMixin, Page):
     """
     A Blog Page
 
@@ -90,6 +93,15 @@ class BlogPage(Page):
 
     search_fields = Page.search_fields + [
         index.SearchField('body'),
+    ]
+
+    api_fields = [
+        APIField('introduction'),
+        APIField('image'),
+        APIField('body'),
+        APIField('subtitle'),
+        APIField('tags'),
+        APIField('date_published'),
     ]
 
     def authors(self):

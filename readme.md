@@ -1,3 +1,11 @@
+Headless preview POC
+====================
+
+* Start up the bakerydemo site as normal: `./manage.py runserver 0:8000`
+* Set up client/index.html to be served at `http://localhost:8020/` - this can be done by running `python3 -m http.server 8020` from inside the `client` directory
+* Edit (or create) and preview a BlogPage
+
+
 Wagtail demo project
 =======================
 
