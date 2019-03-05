@@ -181,7 +181,11 @@ WAGTAILSEARCH_BACKENDS = {
 # Wagtail settings
 WAGTAIL_SITE_NAME = "bakerydemo"
 
-HEADLESS_PREVIEW_CLIENT_URL = 'http://localhost:8020/'
+HEADLESS_PREVIEW_CLIENT_URLS = {
+    'site1.example.com': 'http://localhost:8020/',
+    'site2.example.com': 'http://localhost:8021/',
+    'default': 'http://localhost:8020/',
+}
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/v2/'

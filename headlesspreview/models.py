@@ -46,12 +46,22 @@ class PagePreview(models.Model):
 
 
 class HeadlessPreviewMixin():
+    def get_client_root_url(self):
+        # single client:
+        # return settings.HEADLESS_PREVIEW_CLIENT_URL
+
+        # per-site clients
+        try:
+            return settings.HEADLESS_PREVIEW_CLIENT_URLS[self.get_site().hostname]
+        except KeyError:
+            return settings.HEADLESS_PREVIEW_CLIENT_URLS['default']
+
     def serve_preview(self, request, mode_name):
         page_preview = PagePreview.from_page(self)
         page_preview.save()
         PagePreview.garbage_collect()
 
-        client_url = settings.HEADLESS_PREVIEW_CLIENT_URL + '?' + urllib.parse.urlencode({
+        client_url = self.get_client_root_url() + '?' + urllib.parse.urlencode({
             'identifier': page_preview.identifier,
             'token': page_preview.token,
         })
