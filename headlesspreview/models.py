@@ -6,6 +6,7 @@ import uuid
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 
@@ -66,7 +67,4 @@ class HeadlessPreviewMixin():
             'token': page_preview.token,
         })
 
-        return render(request, 'headless_preview/frame.html', {
-            'page': self,
-            'client_url': client_url,
-        })
+        return HttpResponseRedirect(client_url)
