@@ -13,6 +13,7 @@ RUN set -ex \
 		postgresql-dev \
 		libjpeg-turbo-dev \
 		zlib-dev \
+		expat-dev \
 		git \
 	&& pyvenv /venv \
 	&& /venv/bin/pip install -U pip \
